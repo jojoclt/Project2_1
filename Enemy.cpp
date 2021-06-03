@@ -7,6 +7,7 @@
 
 #include "AudioHelper.hpp"
 #include "Bullet.hpp"
+#include "Collider.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
 #include "ExplosionEffect.hpp"
@@ -53,6 +54,15 @@ void Enemy::Hit(float damage) {
 	}
 }
 void Enemy::Update(float deltaTime) {
+	for (auto& it : getPlayScene()->TowerGroup->GetObjects()) {
+		Turret* turret = dynamic_cast<Turret*>(it);
+		if (!turret->Visible)
+			continue;
+		if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, turret->Position, turret->CollisionRadius)) {
+			turret->Hit(0.1);
+			return;
+		}
+	}
 	float remainSpeed = speed * deltaTime;
 	Position.x -= Velocity.x * deltaTime;
 	Position.y += Velocity.y * deltaTime;

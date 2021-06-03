@@ -433,3 +433,9 @@ bool PlayScene::CheckSpaceValid(int x, int y) {
 	}
 	return true;
 }
+
+void PlayScene::setMapState(Engine::Point pos) {
+	const int x = pos.x / BlockSize;
+	const int y = pos.y / BlockSize;
+	mapState[y][x] = TILE_FLOOR;
+}

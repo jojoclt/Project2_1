@@ -80,6 +80,7 @@ public:
 	void ConstructUI();
 	void UIBtnClicked(int id);
 	bool CheckSpaceValid(int x, int y);
+	void setMapState(Engine::Point pos);
 	std::vector<std::vector<int>> CalculateBFSDistance();
 	// void ModifyReadMapTiles();
 };

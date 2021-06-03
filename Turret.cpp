@@ -2,7 +2,12 @@
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
 #include <utility>
+#include <random>
 
+#include "AudioHelper.hpp"
+#include "Collider.hpp"
+#include "DirtyEffect.hpp"
+#include "ExplosionEffect.hpp"
 #include "Enemy.hpp"
 #include "GameEngine.hpp"
 #include "Group.hpp"
@@ -15,9 +20,21 @@
 PlayScene* Turret::getPlayScene() {
 	return dynamic_cast<PlayScene*>(Engine::GameEngine::GetInstance().GetActiveScene());
 }
+void Turret::OnExplode() {
+	getPlayScene()->EffectGroup->AddNewObject(new ExplosionEffect(Position.x, Position.y));
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> distId(1, 3);
+	std::uniform_int_distribution<std::mt19937::result_type> dist(1, 20);
+	for (int i = 0; i < 10; i++) {
+		// Random add 10 dirty effects.
+		getPlayScene()->GroundEffectGroup->AddNewObject(new DirtyEffect("play/dirty-" + std::to_string(distId(rng)) + ".png", dist(rng), Position.x, Position.y));
+	}
+}
 Turret::Turret(std::string imgTurret, float x, float y, float radius, int price, float coolDown, float hp) :
 	Sprite(imgTurret, x, y), price(price), coolDown(coolDown), radius(radius), hp(hp) {
-	CollisionRadius = radius;
+	ExplodeRadius = CollisionRadius = radius;
+	explodable = false;
 }
 void Turret::Update(float deltaTime) {
 	Sprite::Update(deltaTime);
@@ -51,7 +68,23 @@ void Turret::Update(float deltaTime) {
 			}
 		}
 	}
+}
 
+void Turret::Hit(float damage) {
+	hp -= damage;
+	if (hp <= 0) {
+		if (explodable) {
+			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
+				Enemy* enemy = dynamic_cast<Enemy*>(it);
+				if (Engine::Collider::IsCircleOverlap(Position, ExplodeRadius, enemy->Position, enemy->CollisionRadius))
+					enemy->Hit(INFINITY);
+			}
+		}
+		OnExplode();
+		getPlayScene()->setMapState(Position);
+		getPlayScene()->TowerGroup->RemoveObject(objectIterator);
+		AudioHelper::PlayAudio("explosion.wav");
+	}
 }
 void Turret::Draw() const {
 	if (Preview) {
