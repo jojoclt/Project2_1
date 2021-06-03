@@ -8,6 +8,7 @@
 #include "PlateletTurret.hpp"
 #include "PlayScene.hpp"
 #include "Point.hpp"
+#include "ShootEffect.hpp"
 #include "Enemy.hpp"
 const int PlateletTurret::Price = 50;
 PlateletTurret::PlateletTurret(float x, float y) :
@@ -21,7 +22,9 @@ void PlateletTurret::CreateBullet() {
 	Engine::Point normalized = diff.Normalize();
 	Engine::Point normal = Engine::Point(-normalized.y, normalized.x);
 	// Change bullet position to the front of the gun barrel.
-	// TODO 3 (1/2): Add a Shoot Effect here.
+	// TODO 3 (1/2): + Add a Shoot Effect here.
+	getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position.x + 50, Position.y));
+
 	getPlayScene()->BulletGroup->AddNewObject(new PockyBullet(Position + normalized * 36 - normal * 6, diff, rotation, this));
 	getPlayScene()->BulletGroup->AddNewObject(new PockyBullet(Position + normalized * 36 + normal * 6, diff, rotation, this));
 	AudioHelper::PlayAudio("laser.wav");

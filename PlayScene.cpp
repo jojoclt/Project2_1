@@ -13,8 +13,10 @@
 #include "AudioHelper.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
+#include "FreezeTurret.hpp"
 #include "GameEngine.hpp"
 #include "Group.hpp"
+#include "HeadEnemy.hpp"
 #include "IObject.hpp"
 #include "Image.hpp"
 #include "Label.hpp"
@@ -39,8 +41,8 @@ const int PlayScene::BlockSize = 128;
 const float PlayScene::DangerTime = 7.61;
 const int PlayScene::SpawnGridPointx = 12;
 const int PlayScene::EndGridPointx = -1;
-// TODO 4 (1/3): Set a cheat sequence here.
-const std::vector<int> PlayScene::code;
+// TODO 4 (1/3): + Set a cheat sequence here.
+const std::vector<int> PlayScene::code = { ALLEGRO_KEY_UP, ALLEGRO_KEY_UP, ALLEGRO_KEY_DOWN, ALLEGRO_KEY_DOWN, ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT, ALLEGRO_KEY_ENTER };
 Engine::Point PlayScene::GetClientSize() {
 	return Engine::Point(MapWidth * BlockSize, MapHeight * BlockSize);
 }
@@ -161,9 +163,12 @@ void PlayScene::Update(float deltaTime) {
 				case 3:
 					EnemyGroup->AddNewObject(enemy = new StrongEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
 					break;
-					// TODO 2 (7/8): You need to modify 'resources/enemy1.txt', or 'resources/enemy2.txt' to spawn the 4th enemy.
+					// TODO 2 (7/8): + You need to modify 'resources/enemy1.txt', or 'resources/enemy2.txt' to spawn the 4th enemy.
 					//         The format is "[EnemyId] [TimeDelay] [LaneNum] [Repeat]".
-					// TODO 2 (8/8): Enable the creation of the 4th enemy.
+					// TODO 2 (8/8): + Enable the creation of the 4th enemy.
+				case 4:
+					EnemyGroup->AddNewObject(enemy = new HeadEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
+					break;
 				default:
 					continue;
 			}
@@ -241,16 +246,21 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 }
 void PlayScene::OnKeyDown(int keyCode) {
 	IScene::OnKeyDown(keyCode);
-	// TODO 4 (2/3): Set Tab as a code to active or de-active debug mode
-	if (keyCode) {
+	// TODO 4 (2/3): + Set Tab as a code to active or de-active debug mode
+	if (keyCode == ALLEGRO_KEY_TAB) {
 		DebugMode = !DebugMode;
 	}
 	else {
 		keyStrokes.push_back(keyCode);
 		if (keyStrokes.size() > code.size())
 			keyStrokes.pop_front();
-        // TODO 4 (3/3): Check whether the input sequence is correct
-		EffectGroup->AddNewObject(new Plane());
+        // TODO 4 (3/3): + Check whether the input sequence is correct
+		bool isEqual = std::equal(std::begin(code), std::end(code), std::begin(keyStrokes), std::end(keyStrokes));
+		if (isEqual) {
+			EffectGroup->AddNewObject(new Plane());
+			EarnMoney(10000);
+			EarnLives(10);
+		}
 	}
 	if (keyCode == ALLEGRO_KEY_Q) {
 		// Hotkey for WBCellTurret.
@@ -260,16 +270,21 @@ void PlayScene::OnKeyDown(int keyCode) {
 		// Hotkey for PlateletTurret.
 		UIBtnClicked(1);
 	}
-	// TODO 2 (5/8): Make the E key to create the 3th turret.
+	// TODO 2 (5/8): + Make the E key to create the 3th turret.
+	else if (keyCode == ALLEGRO_KEY_E) {
+		// HotKey for FreezeTurret
+		UIBtnClicked(2);
+	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
 		SpeedMult = keyCode - ALLEGRO_KEY_0;
 	}
 }
 void PlayScene::Hit() {
-	if (lives) {
+	EarnLives(-1);
+	if (!lives) {
 		// Free resources.
-				delete TileMapGroup;
+				/*delete TileMapGroup;
 				delete GroundEffectGroup;
 				delete DebugIndicatorGroup;
 				delete TowerGroup;
@@ -277,9 +292,9 @@ void PlayScene::Hit() {
 				delete BulletGroup;
 				delete EffectGroup;
 				delete UIGroup;
-				delete imgTarget;
+				delete imgTarget;*/
 		//lose
-		Engine::GameEngine::GetInstance().ChangeScene("lose-scene");
+		Engine::GameEngine::GetInstance().ChangeScene("lose");
 	}
 }
 int PlayScene::GetMoney() const {
@@ -288,6 +303,10 @@ int PlayScene::GetMoney() const {
 void PlayScene::EarnMoney(int money) {
 	this->money += money;
 	UIMoney->Text = std::string("$") + std::to_string(this->money);
+}
+void PlayScene::EarnLives(int lives) {
+	this->lives += lives;
+	UILives->Text = std::string("Life ") + std::to_string(this->lives);
 }
 void PlayScene::ReadMap() {
 	std::string filename = std::string("resources/map") + std::to_string(MapId) + ".txt";
@@ -360,7 +379,12 @@ void PlayScene::ConstructUI() {
 		, 290, 128*MapHeight, PlateletTurret::Price);
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 1));
 	UIGroup->AddNewControlObject(btn);
-    // TODO 2 (3/8): Create a button to support constructing the 3th tower.
+    // TODO 2 (3/8): + Create a button to support constructing the 3th tower.
+	btn = new TurretButton("play/floor.png", "play/dirt.png",
+		Engine::Sprite("play/turret-3.png", 420, BlockSize * MapHeight, 0, 0, 0, 0)
+		, 410, 128 * MapHeight, FreezeTurret::Price);
+	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 2));
+	UIGroup->AddNewControlObject(btn);
 
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -379,7 +403,9 @@ void PlayScene::UIBtnClicked(int id) {
 		preview = new WBCellTurret(0, 0);
 	else if (id == 1 && money >= PlateletTurret::Price)
 		preview = new PlateletTurret(0, 0);
-	// TODO 2 (4/8): On callback, create the 3th tower.
+	// TODO 2 (4/8): + On callback, create the 3th tower.
+	else if (id == 2 && money >= FreezeTurret::Price)
+		preview = new FreezeTurret(0, 0);
 	if (!preview)
 		return;
 	preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();

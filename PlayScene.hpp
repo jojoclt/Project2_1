@@ -74,6 +74,7 @@ public:
 	void Hit();
 	int GetMoney() const;
 	void EarnMoney(int money);
+	void EarnLives(int lives);
 	void ReadMap();
 	void ReadEnemyWave();
 	void ConstructUI();

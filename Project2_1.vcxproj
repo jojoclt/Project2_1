@@ -190,8 +190,11 @@
     <ClInclude Include="DirtyEffect.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="ExplosionEffect.hpp" />
+    <ClInclude Include="FireBullet.hpp" />
+    <ClInclude Include="FreezeTurret.hpp" />
     <ClInclude Include="GameEngine.hpp" />
     <ClInclude Include="Group.hpp" />
+    <ClInclude Include="HeadEnemy.hpp" />
     <ClInclude Include="IceCreamBullet.hpp" />
     <ClInclude Include="IControl.hpp" />
     <ClInclude Include="Image.hpp" />
@@ -208,6 +211,8 @@
     <ClInclude Include="PockyBullet.hpp" />
     <ClInclude Include="Point.hpp" />
     <ClInclude Include="Resources.hpp" />
+    <ClInclude Include="SettingScene.hpp" />
+    <ClInclude Include="ShootEffect.hpp" />
     <ClInclude Include="Slider.hpp" />
     <ClInclude Include="SofaEnemy.hpp" />
     <ClInclude Include="Sprite.hpp" />
@@ -227,8 +232,11 @@
     <ClCompile Include="DirtyEffect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
+    <ClCompile Include="FireBullet.cpp" />
+    <ClCompile Include="FreezeTurret.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Group.cpp" />
+    <ClCompile Include="HeadEnemy.cpp" />
     <ClCompile Include="IceCreamBullet.cpp" />
     <ClCompile Include="IControl.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -246,6 +254,8 @@
     <ClCompile Include="PockyBullet.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="SettingScene.cpp" />
+    <ClCompile Include="ShootEffect.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="SofaEnemy.cpp" />
     <ClCompile Include="Sprite.cpp" />
