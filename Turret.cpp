@@ -15,9 +15,9 @@
 PlayScene* Turret::getPlayScene() {
 	return dynamic_cast<PlayScene*>(Engine::GameEngine::GetInstance().GetActiveScene());
 }
-Turret::Turret(std::string imgTurret, float x, float y,/* float radius,*/ int price, float coolDown) :
-	Sprite(imgTurret, x, y), price(price), coolDown(coolDown) {
-	//CollisionRadius = radius;
+Turret::Turret(std::string imgTurret, float x, float y, float radius, int price, float coolDown, float hp) :
+	Sprite(imgTurret, x, y), price(price), coolDown(coolDown), radius(radius), hp(hp) {
+	CollisionRadius = radius;
 }
 void Turret::Update(float deltaTime) {
 	Sprite::Update(deltaTime);
@@ -54,14 +54,14 @@ void Turret::Update(float deltaTime) {
 
 }
 void Turret::Draw() const {
-	/*if (Preview) {
+	if (Preview) {
 		al_draw_filled_circle(Position.x, Position.y, CollisionRadius, al_map_rgba(0, 255, 0, 50));
-	}*/
+	}
 	Sprite::Draw();
-	/*if (PlayScene::DebugMode) {
+	if (PlayScene::DebugMode) {
 		// Draw target radius.
 		al_draw_circle(Position.x, Position.y, CollisionRadius, al_map_rgb(0, 0, 255), 2);
-	}*/
+	}
 }
 int Turret::GetPrice() const {
 	return price;
