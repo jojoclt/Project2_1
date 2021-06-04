@@ -75,13 +75,14 @@ void Turret::Hit(float damage) {
 	hp -= damage;
 	if (hp <= 0) {
 		isDestroy = true;
-		for (auto& it : lockedEnemy)
+		/*for (auto& it : lockedEnemy)
 			it->Target = nullptr;
 		for (auto& it : lockedEnemyBullet)
+			it->Target = nullptr;*/
 		if (explodable) {
 			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
 				Enemy* enemy = dynamic_cast<Enemy*>(it);
-				if (Engine::Collider::IsCircleOverlap(Position, ExplodeRadius, enemy->Position, enemy->CollisionRadius))
+				if (Engine::Collider::IsCircleOverlap(Position, 250, enemy->Position, enemy->CollisionRadius))
 					enemy->Hit(INFINITY);
 			}
 		}
@@ -92,7 +93,7 @@ void Turret::Hit(float damage) {
 	}
 }
 void Turret::Draw() const {
-	if (explodable) al_draw_circle(Position.x, Position.y, ExplodeRadius, al_map_rgb(0, 255, 0), 2);
+	if (explodable) al_draw_circle(Position.x, Position.y, 250, al_map_rgb(0, 255, 0), 2);
 	else if (Preview) {
 		al_draw_filled_circle(Position.x, Position.y, CollisionRadius, al_map_rgba(0, 255, 0, 50));
 	}
