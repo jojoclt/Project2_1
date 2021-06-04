@@ -74,6 +74,14 @@ void Turret::Hit(float damage) {
 	hp -= damage;
 	if (hp <= 0) {
 		isDestroy = true;
+
+		if (explodable) {
+			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
+				Enemy* enemy = dynamic_cast<Enemy*>(it);
+				if (Engine::Collider::IsCircleOverlap(Position, ExplodeRadius, enemy->Position, enemy->CollisionRadius))
+					enemy->Hit(INFINITY);
+			}
+		}
 		OnExplode();
 		getPlayScene()->setMapState(Position);
 		getPlayScene()->TowerGroup->RemoveObject(objectIterator);
