@@ -42,21 +42,39 @@
 [INFO] Loaded Resource<image>: resources/images/play/shoot-2.png
 [INFO] Loaded Resource<image>: resources/images/play/shoot-3.png
 [INFO] Loaded Resource<image>: resources/images/play/shoot-4.png
-[INFO] Loaded Resource<image>: resources/images/play/bullet-1.png
-[INFO] Loaded Resource<audio>: resources/audios/gun.wav
 [INFO] Loaded Resource<image>: resources/images/play/bullet-11.png
+[INFO] Loaded Resource<audio>: resources/audios/gun.wav
+[INFO] Loaded Resource<image>: resources/images/play/bullet-1.png
 [INFO] Loaded Resource<image>: resources/images/play/dirty-1.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-1.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-2.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-3.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-4.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-5.png
-[INFO] Loaded Resource<image>: resources/images/play/dirty-2.png
 [INFO] Loaded Resource<image>: resources/images/play/dirty-3.png
+[INFO] Loaded Resource<image>: resources/images/play/dirty-2.png
 [INFO] Loaded Resource<audio>: resources/audios/explosion.wav
 [INFO] Loaded Resource<image>: resources/images/play/enemy-4.png
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
+[INFO] stopped audio (sample)
+[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
 [INFO] Game Terminating...
 [INFO] stopped audio (bgm)
+[INFO] stopped audio (sample)
 [INFO] Game terminated
 [INFO] Game end
 [INFO] Destroyed Resource<image>: play/dirty-3.png
@@ -89,9 +107,9 @@
 [INFO] Destroyed Resource<image>: play/enemy-1.png
 [INFO] Destroyed Resource<image>: play/shoot-3.png
 [INFO] Destroyed Resource<image>: play/shoot-4.png
-[INFO] Destroyed Resource<image>: play/bullet-1.png
 [INFO] Destroyed Resource<image>: play/explosion-5.png
 [INFO] Destroyed Resource<image>: play/bullet-11.png
+[INFO] Destroyed Resource<image>: play/bullet-1.png
 [INFO] Destroyed Resource<image>: play/dirty-1.png
 [INFO] Destroyed Resource<image>: play/explosion-1.png
 [INFO] Destroyed Resource<image>: play/explosion-4.png

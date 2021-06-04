@@ -42,8 +42,8 @@ Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float
 }
 void Enemy::Hit(float damage) {
 	hp -= damage;
-	if (Tag == "Normal") {
-		Velocity.x *= 1.2;
+	if (Tag == "Head") {
+		Velocity.x *= 1.1;
 	}
 	if (hp <= 0) {
 		OnExplode();
@@ -58,16 +58,17 @@ void Enemy::Hit(float damage) {
 	}
 }
 void Enemy::Update(float deltaTime) {
+	isOverlap = false;
 	for (auto& it : getPlayScene()->TowerGroup->GetObjects()) {
 		Turret* turret = dynamic_cast<Turret*>(it);
 		if (!turret->Visible)
 			continue;
 		if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, turret->Position, turret->CollisionRadius)) {
-			return;
+			isOverlap = true;
 		}
 	}
 	float remainSpeed = speed * deltaTime;
-	Position.x -= Velocity.x * deltaTime;
+	if (!isOverlap) Position.x -= Velocity.x * deltaTime;
 	Position.y += Velocity.y * deltaTime;
 	if(Position.x <= PlayScene::EndGridPointx * PlayScene::BlockSize + PlayScene::BlockSize / 2){
 		Hit(hp);

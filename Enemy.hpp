@@ -19,6 +19,7 @@ protected:
 	float speed;
 	float hp;
 	int money;
+	bool isOverlap = false;
 	std::string Tag = "";
 	PlayScene* getPlayScene();
 	virtual void OnExplode();
