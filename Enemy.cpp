@@ -7,6 +7,7 @@
 
 #include "AudioHelper.hpp"
 #include "Bullet.hpp"
+#include "EnemyBullet.hpp"
 #include "Collider.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
@@ -32,8 +33,8 @@ void Enemy::OnExplode() {
 		getPlayScene()->GroundEffectGroup->AddNewObject(new DirtyEffect("play/dirty-" + std::to_string(distId(rng)) + ".png", dist(rng), Position.x, Position.y));
 	}
 }
-Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float hp, int money) :
-	Engine::Sprite(img, x, y), speed(speed), hp(hp), money(money) {
+Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float hp, int money, float coolDown) :
+	Engine::Sprite(img, x, y), speed(speed), hp(hp), money(money), coolDown(coolDown) {
 	CollisionRadius = radius;
 	reachEndTime = 0;
 	Velocity = Engine::Point(speed , 0);
@@ -59,7 +60,6 @@ void Enemy::Update(float deltaTime) {
 		if (!turret->Visible)
 			continue;
 		if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, turret->Position, turret->CollisionRadius)) {
-			turret->Hit(0.1);
 			return;
 		}
 	}
@@ -74,6 +74,38 @@ void Enemy::Update(float deltaTime) {
 	}
 	Engine::Point vec = target - Position;
 	reachEndTime = (vec.Magnitude() - remainSpeed) / speed;
+
+	PlayScene* scene = getPlayScene();
+
+	if (Target) {
+		if (Target->Position.x > Position.x && Target->Position.y >= Position.y && Target->Position.y < Position.y + scene->BlockSize) {
+			//Target->lockedEnemy.erase(lockedEnemyIterator);
+			Target = nullptr;
+			//lockedEnemyIterator = std::list<Enemy*>::iterator();
+
+		}
+		// Shoot reload.
+		reload -= deltaTime;
+		if (reload <= 0) {
+			// shoot.
+			reload = coolDown;
+			CreateEnemyBullet();
+		}
+	}
+	if (!Target) {
+		// Lock first seen target.
+		// Can be improved by Spatial Hash, Quad Tree, ...
+		// However simply loop through all enemies is enough for this program.
+		for (auto& it : scene->TowerGroup->GetObjects()) {
+			if (it->Position.x < Position.x && it->Position.y >= Position.y && it->Position.y < Position.y + scene->BlockSize) {
+				Target = dynamic_cast<Turret*>(it);
+				Target->lockedEnemy.push_back(this);
+				//lockedEnemyIterator = std::prev(Target->lockedEnemy.end());
+				break;
+			}
+		}
+	}
+
 }
 void Enemy::Draw() const {
 	Sprite::Draw();

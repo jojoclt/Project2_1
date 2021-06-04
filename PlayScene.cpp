@@ -64,6 +64,7 @@ void PlayScene::Initialize() {
 	AddNewObject(DebugIndicatorGroup = new Group());
 	AddNewObject(TowerGroup = new Group());
 	AddNewObject(EnemyGroup = new Group());
+	AddNewObject(EnemyBulletGroup = new Group());
 	AddNewObject(BulletGroup = new Group());
 	AddNewObject(EffectGroup = new Group());
 	// Should support buttons.

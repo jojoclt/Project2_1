@@ -9,6 +9,7 @@
 #include "DirtyEffect.hpp"
 #include "ExplosionEffect.hpp"
 #include "Enemy.hpp"
+#include "EnemyBullet.hpp"
 #include "GameEngine.hpp"
 #include "Group.hpp"
 #include "IObject.hpp"
@@ -74,7 +75,9 @@ void Turret::Hit(float damage) {
 	hp -= damage;
 	if (hp <= 0) {
 		isDestroy = true;
-
+		for (auto& it : lockedEnemy)
+			it->Target = nullptr;
+		for (auto& it : lockedEnemyBullet)
 		if (explodable) {
 			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
 				Enemy* enemy = dynamic_cast<Enemy*>(it);

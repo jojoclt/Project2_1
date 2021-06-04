@@ -14,7 +14,7 @@ ExplodeTurret::ExplodeTurret(float x, float y) :
 	explodable = true;
 	ExplodeRadius = 250;
 	// Move center downward, since we the turret head is slightly biased upward.
-	Anchor.y += 8.0f / GetBitmapHeight();
+	//Anchor.y += 8.0f / GetBitmapHeight();
 
 }
 

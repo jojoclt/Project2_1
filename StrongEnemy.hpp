@@ -5,5 +5,6 @@
 class StrongEnemy : public Enemy {
 public:
 	StrongEnemy(int x, int y);
+	void CreateEnemyBullet() override;
 };
 #endif // STRONGENEMY_HPP
