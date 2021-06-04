@@ -1,7 +1,7 @@
 [INFO] Game Initializing...
 [INFO] Loaded Resource<image>: resources/images/icon.png
 [INFO] Loaded window icon from: icon.png
-[INFO] There are total 8 supported mouse buttons
+[INFO] There are total 16 supported mouse buttons
 [INFO] Allegro5 initialized
 [INFO] Game begin
 [INFO] Loaded Resource<image>: resources/images/start_scene/out.png scaled to 400x100
@@ -27,6 +27,8 @@
 [INFO] Loaded Resource<image>: resources/images/play/dirt.png
 [INFO] Loaded Resource<image>: resources/images/play/turret-2.png
 [INFO] Loaded Resource<image>: resources/images/play/turret-3.png
+[INFO] Loaded Resource<image>: resources/images/play/turret-5.png
+[INFO] Loaded Resource<image>: resources/images/play/turret-4.png
 [INFO] Loaded Resource<image>: resources/images/play/benjamin.png
 [INFO] Loaded Resource<image>: resources/images/play/target.png
 [INFO] Loaded Resource<audio>: resources/audios/astronomia.ogg
@@ -47,23 +49,18 @@
 [INFO] Loaded Resource<image>: resources/images/play/light-9.png
 [INFO] Loaded Resource<image>: resources/images/play/light-10.png
 [INFO] Loaded Resource<image>: resources/images/play/shockwave.png
-[INFO] Loaded Resource<image>: resources/images/play/shoot-1.png
-[INFO] Loaded Resource<image>: resources/images/play/shoot-2.png
-[INFO] Loaded Resource<image>: resources/images/play/shoot-3.png
-[INFO] Loaded Resource<image>: resources/images/play/shoot-4.png
-[INFO] Loaded Resource<image>: resources/images/play/bullet-1.png
-[INFO] Loaded Resource<audio>: resources/audios/gun.wav
-[INFO] Loaded Resource<image>: resources/images/play/dirty-1.png
 [INFO] Loaded Resource<audio>: resources/audios/shockwave.ogg
 [INFO] Loaded Resource<image>: resources/images/play/explosion-1.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-2.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-3.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-4.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-5.png
+[INFO] Loaded Resource<image>: resources/images/play/dirty-1.png
 [INFO] Loaded Resource<image>: resources/images/play/dirty-3.png
 [INFO] Loaded Resource<image>: resources/images/play/dirty-2.png
 [INFO] Loaded Resource<audio>: resources/audios/explosion.wav
 [INFO] Loaded Resource<image>: resources/images/play/enemy-4.png
+[INFO] Loaded Resource<image>: resources/images/play/target-invalid.png
 [INFO] Loaded Resource<image>: resources/images/play/enemy-2.png
 [INFO] Game Terminating...
 [INFO] stopped audio (bgm)
@@ -86,34 +83,32 @@
 [INFO] Destroyed Resource<image>: play/enemy-2.png
 [INFO] Destroyed Resource<image>: play/pink.png?128x128
 [INFO] Destroyed Resource<image>: play/sand.png?1536x128
-[INFO] Destroyed Resource<image>: play/shoot-2.png
 [INFO] Destroyed Resource<image>: play/light-7.png
 [INFO] Destroyed Resource<image>: play/turret-1.png
-[INFO] Destroyed Resource<image>: play/shoot-1.png
 [INFO] Destroyed Resource<image>: play/light-4.png
 [INFO] Destroyed Resource<image>: play/turret-2.png
 [INFO] Destroyed Resource<image>: play/light-5.png
 [INFO] Destroyed Resource<image>: play/turret-3.png
+[INFO] Destroyed Resource<image>: play/light-3.png
+[INFO] Destroyed Resource<image>: play/turret-5.png
+[INFO] Destroyed Resource<image>: play/light-2.png
+[INFO] Destroyed Resource<image>: play/turret-4.png
 [INFO] Destroyed Resource<image>: play/benjamin.png
 [INFO] Destroyed Resource<image>: play/target.png
 [INFO] Destroyed Resource<image>: play/plane.png
 [INFO] Destroyed Resource<image>: lose/benjamin-happy.png
 [INFO] Destroyed Resource<image>: play/enemy-1.png
-[INFO] Destroyed Resource<image>: play/shoot-4.png
 [INFO] Destroyed Resource<image>: play/light-1.png
-[INFO] Destroyed Resource<image>: play/light-2.png
-[INFO] Destroyed Resource<image>: play/light-3.png
-[INFO] Destroyed Resource<image>: play/shoot-3.png
+[INFO] Destroyed Resource<image>: play/target-invalid.png
 [INFO] Destroyed Resource<image>: play/light-6.png
 [INFO] Destroyed Resource<image>: play/light-8.png
 [INFO] Destroyed Resource<image>: play/light-9.png
 [INFO] Destroyed Resource<image>: play/light-10.png
 [INFO] Destroyed Resource<image>: play/shockwave.png
-[INFO] Destroyed Resource<image>: play/bullet-1.png
-[INFO] Destroyed Resource<image>: play/dirty-1.png
 [INFO] Destroyed Resource<image>: play/explosion-1.png
 [INFO] Destroyed Resource<image>: play/explosion-4.png
 [INFO] Destroyed Resource<image>: play/explosion-5.png
+[INFO] Destroyed Resource<image>: play/dirty-1.png
 [INFO] Destroyed Resource<image>: play/enemy-4.png
 [INFO] Destroyed Resource<font>: pirulen.ttf?48
 [INFO] Destroyed Resource<font>: pirulen.ttf?108
@@ -122,7 +117,6 @@
 [INFO] Destroyed<sample_instance>: astronomia.ogg
 [INFO] Destroyed Resource<audio>: select.ogg
 [INFO] Destroyed Resource<audio>: shockwave.ogg
-[INFO] Destroyed Resource<audio>: gun.wav
 [INFO] Destroyed Resource<audio>: astronomia.ogg
 [INFO] Destroyed Resource<audio>: play.ogg
 [INFO] Destroyed Resource<audio>: explosion.wav

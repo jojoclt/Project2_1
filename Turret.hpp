@@ -18,7 +18,8 @@ protected:
     float hp;
     float rotateRadian = 2 * ALLEGRO_PI;
     bool explodable;
-    int ExplodeRadius;
+    bool isDestroy;
+    float ExplodeRadius;
     std::list<Turret*>::iterator lockedTurretIterator;
     PlayScene* getPlayScene();
     // Reference: Design Patterns - Factory Method.
@@ -34,5 +35,8 @@ public:
 	int GetPrice() const;
     void Hit(float damage);
     void OnExplode();
+    bool getExplode() const;
+    bool getDestroy() const;
+    float getExplodeRadius() const;
 };
 #endif // TURRET_HPP

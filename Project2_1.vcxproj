@@ -187,8 +187,10 @@
     <ClInclude Include="AudioHelper.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="Collider.hpp" />
+    <ClInclude Include="DefenseTurret.hpp" />
     <ClInclude Include="DirtyEffect.hpp" />
     <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="ExplodeTurret.hpp" />
     <ClInclude Include="ExplosionEffect.hpp" />
     <ClInclude Include="FireBullet.hpp" />
     <ClInclude Include="FreezeTurret.hpp" />
@@ -229,8 +231,10 @@
     <ClCompile Include="AudioHelper.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="DefenseTurret.cpp" />
     <ClCompile Include="DirtyEffect.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ExplodeTurret.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="FreezeTurret.cpp" />

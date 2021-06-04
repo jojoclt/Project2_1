@@ -13,6 +13,8 @@
 #include "AudioHelper.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
+#include "DefenseTurret.hpp"
+#include "ExplodeTurret.hpp"
 #include "FreezeTurret.hpp"
 #include "GameEngine.hpp"
 #include "Group.hpp"
@@ -275,6 +277,14 @@ void PlayScene::OnKeyDown(int keyCode) {
 		// HotKey for FreezeTurret
 		UIBtnClicked(2);
 	}
+	else if (keyCode == ALLEGRO_KEY_R) {
+		// HotKey for DefenseTurret
+		UIBtnClicked(3);
+	}
+	else if (keyCode == ALLEGRO_KEY_T) {
+		// HotKey for ExplodeTurret
+		UIBtnClicked(4);
+	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
 		SpeedMult = keyCode - ALLEGRO_KEY_0;
@@ -379,11 +389,24 @@ void PlayScene::ConstructUI() {
 		, 290, 128*MapHeight, PlateletTurret::Price);
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 1));
 	UIGroup->AddNewControlObject(btn);
+
     // TODO 2 (3/8): + Create a button to support constructing the 3th tower.
 	btn = new TurretButton("play/floor.png", "play/dirt.png",
 		Engine::Sprite("play/turret-3.png", 420, BlockSize * MapHeight, 0, 0, 0, 0)
 		, 410, 128 * MapHeight, FreezeTurret::Price);
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 2));
+	UIGroup->AddNewControlObject(btn);
+
+	btn = new TurretButton("play/floor.png", "play/dirt.png",
+		Engine::Sprite("play/turret-5.png", 540, BlockSize * MapHeight, 0, 0, 0, 0)
+		, 530, 128 * MapHeight, DefenseTurret::Price);
+	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 3));
+	UIGroup->AddNewControlObject(btn);
+
+	btn = new TurretButton("play/floor.png", "play/dirt.png",
+		Engine::Sprite("play/turret-4.png", 660, BlockSize * MapHeight, 0, 0, 0, 0)
+		, 650, 128 * MapHeight, ExplodeTurret::Price);
+	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 4));
 	UIGroup->AddNewControlObject(btn);
 
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
@@ -406,6 +429,10 @@ void PlayScene::UIBtnClicked(int id) {
 	// TODO 2 (4/8): + On callback, create the 3th tower.
 	else if (id == 2 && money >= FreezeTurret::Price)
 		preview = new FreezeTurret(0, 0);
+	else if (id == 3 && money >= DefenseTurret::Price)
+		preview = new DefenseTurret(0, 0);
+	else if (id == 4 && money >= ExplodeTurret::Price)
+		preview = new ExplodeTurret(0, 0);
 	if (!preview)
 		return;
 	preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();

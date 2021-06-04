@@ -73,13 +73,7 @@ void Turret::Update(float deltaTime) {
 void Turret::Hit(float damage) {
 	hp -= damage;
 	if (hp <= 0) {
-		if (explodable) {
-			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
-				Enemy* enemy = dynamic_cast<Enemy*>(it);
-				if (Engine::Collider::IsCircleOverlap(Position, ExplodeRadius, enemy->Position, enemy->CollisionRadius))
-					enemy->Hit(INFINITY);
-			}
-		}
+		isDestroy = true;
 		OnExplode();
 		getPlayScene()->setMapState(Position);
 		getPlayScene()->TowerGroup->RemoveObject(objectIterator);
@@ -87,7 +81,8 @@ void Turret::Hit(float damage) {
 	}
 }
 void Turret::Draw() const {
-	if (Preview) {
+	if (explodable) al_draw_circle(Position.x, Position.y, ExplodeRadius, al_map_rgb(0, 255, 0), 2);
+	else if (Preview) {
 		al_draw_filled_circle(Position.x, Position.y, CollisionRadius, al_map_rgba(0, 255, 0, 50));
 	}
 	Sprite::Draw();
@@ -99,3 +94,9 @@ void Turret::Draw() const {
 int Turret::GetPrice() const {
 	return price;
 }
+
+bool Turret::getExplode() const { return explodable; }
+
+bool Turret::getDestroy() const { return isDestroy; }
+
+float Turret::getExplodeRadius() const { return ExplodeRadius; }

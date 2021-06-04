@@ -60,6 +60,14 @@ void Enemy::Update(float deltaTime) {
 			continue;
 		if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, turret->Position, turret->CollisionRadius)) {
 			turret->Hit(0.1);
+			if (turret->getExplode() && turret->getDestroy()) {
+				// so when call hit it just crash for exploding target
+				for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
+					Enemy* enemy = dynamic_cast<Enemy*>(it);
+					if (Engine::Collider::IsCircleOverlap(Position, turret->getExplodeRadius(), enemy->Position, enemy->CollisionRadius))
+						enemy->Hit(INFINITY);
+				}
+			}
 			return;
 		}
 	}
