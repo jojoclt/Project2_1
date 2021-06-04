@@ -147,6 +147,9 @@
     <ClInclude Include="NormalEnemyBullet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Remove_Turret.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StageSelectScene.cpp">
@@ -282,6 +285,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NormalEnemyBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Remove_Turret.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

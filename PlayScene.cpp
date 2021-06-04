@@ -25,6 +25,7 @@
 #include "NormalEnemy.hpp"
 #include "PlateletTurret.hpp"
 #include "WBCellTurret.hpp"
+#include "Remove_Turret.hpp"
 #include "Plane.hpp"
 #include "PlayScene.hpp"
 #include "Resources.hpp"
@@ -219,7 +220,7 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 			if (!preview)
 				return;
 			// Check if valid.
-			if (!CheckSpaceValid(x, y)) {
+			if (!CheckSpaceValid(x, y) || preview->GetPrice() == 0) {
 				Engine::Sprite* sprite;
 				GroundEffectGroup->AddNewObject(sprite = new DirtyEffect("play/target-invalid.png", 1, x * BlockSize + BlockSize / 2, y * BlockSize + BlockSize / 2));
 				sprite->Rotation = 0;
@@ -243,6 +244,36 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 			preview = nullptr;
 
 			mapState[y][x] = TILE_OCCUPIED;
+			OnMouseMove(mx, my);
+		}
+		else if (mapState[y][x] == TILE_OCCUPIED) {
+			if (!preview)
+				return;
+
+			// Remove Preview.
+			preview->GetObjectIterator()->first = false;
+			UIGroup->RemoveObject(preview->GetObjectIterator());
+			// Construct real turret.
+			
+			preview->Position.x = x * BlockSize + BlockSize / 2;
+			preview->Position.y = y * BlockSize + BlockSize / 2;
+			preview->Enabled = true;
+			preview->Preview = false;
+			preview->Tint = al_map_rgba(255, 255, 255, 255);
+			// we gonna loop the tower group to find the position!
+			for (auto& it : TowerGroup->GetObjects()) {
+				Turret* turret = dynamic_cast<Turret*>(it);
+				if (it->Position == preview->Position) {
+					turret->Hit(INFINITY);
+					break;
+				}
+			}
+			// To keep responding when paused.
+			preview->Update(0);
+			// Remove Preview.
+			preview = nullptr;
+
+			mapState[y][x] = TILE_FLOOR;
 			OnMouseMove(mx, my);
 		}
 	}
@@ -285,6 +316,10 @@ void PlayScene::OnKeyDown(int keyCode) {
 	else if (keyCode == ALLEGRO_KEY_T) {
 		// HotKey for ExplodeTurret
 		UIBtnClicked(4);
+	}
+	else if (keyCode == ALLEGRO_KEY_Y) {
+		// Remove Turret
+		UIBtnClicked(5);
 	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
@@ -410,6 +445,12 @@ void PlayScene::ConstructUI() {
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 4));
 	UIGroup->AddNewControlObject(btn);
 
+	btn = new TurretButton("play/floor.png", "play/dirt.png",
+		Engine::Sprite("play/bomb.png", 780, BlockSize * MapHeight, 0, 0, 0, 0)
+		, 770, 128 * MapHeight, Remove_Turret::Price);
+	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, 5));
+	UIGroup->AddNewControlObject(btn);
+
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
 	int shift = 135 + 25;
@@ -434,6 +475,8 @@ void PlayScene::UIBtnClicked(int id) {
 		preview = new DefenseTurret(0, 0);
 	else if (id == 4 && money >= ExplodeTurret::Price)
 		preview = new ExplodeTurret(0, 0);
+	else if (id == 5 && money >= Remove_Turret::Price)
+		preview = new Remove_Turret(0, 0);
 	if (!preview)
 		return;
 	preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();

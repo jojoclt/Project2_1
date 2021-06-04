@@ -75,10 +75,11 @@ void Turret::Hit(float damage) {
 	hp -= damage;
 	if (hp <= 0) {
 		isDestroy = true;
-		/*for (auto& it : lockedEnemy)
+		// This one is for like if turret is destroy then the enemy bullet should also stop shooting
+		for (auto& it : lockedEnemy)
 			it->Target = nullptr;
 		for (auto& it : lockedEnemyBullet)
-			it->Target = nullptr;*/
+			it->Target = nullptr;
 		if (explodable) {
 			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
 				Enemy* enemy = dynamic_cast<Enemy*>(it);

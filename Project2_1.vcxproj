@@ -214,6 +214,7 @@
     <ClInclude Include="PlayScene.hpp" />
     <ClInclude Include="PockyBullet.hpp" />
     <ClInclude Include="Point.hpp" />
+    <ClInclude Include="Remove_Turret.hpp" />
     <ClInclude Include="Resources.hpp" />
     <ClInclude Include="SettingScene.hpp" />
     <ClInclude Include="ShootEffect.hpp" />
@@ -261,6 +262,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PockyBullet.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Remove_Turret.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SettingScene.cpp" />
     <ClCompile Include="ShootEffect.cpp" />
