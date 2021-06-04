@@ -42,6 +42,9 @@ Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float
 }
 void Enemy::Hit(float damage) {
 	hp -= damage;
+	if (Tag == "Normal") {
+		Velocity.x *= 1.2;
+	}
 	if (hp <= 0) {
 		OnExplode();
 		// Remove all turret's reference to target.
@@ -79,9 +82,9 @@ void Enemy::Update(float deltaTime) {
 
 	if (Target) {
 		if (Target->Position.x > Position.x && Target->Position.y >= Position.y && Target->Position.y < Position.y + scene->BlockSize) {
-			//Target->lockedEnemy.erase(lockedEnemyIterator);
+			Target->lockedEnemy.erase(lockedEnemyIterator);
 			Target = nullptr;
-			//lockedEnemyIterator = std::list<Enemy*>::iterator();
+			lockedEnemyIterator = std::list<Enemy*>::iterator();
 
 		}
 		// Shoot reload.
@@ -100,7 +103,7 @@ void Enemy::Update(float deltaTime) {
 			if (it->Position.x < Position.x && it->Position.y >= Position.y && it->Position.y < Position.y + scene->BlockSize) {
 				Target = dynamic_cast<Turret*>(it);
 				Target->lockedEnemy.push_back(this);
-				//lockedEnemyIterator = std::prev(Target->lockedEnemy.end());
+				lockedEnemyIterator = std::prev(Target->lockedEnemy.end());
 				break;
 			}
 		}

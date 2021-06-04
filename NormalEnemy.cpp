@@ -11,9 +11,11 @@
 #include "ShootEffect.hpp"
 #include "Enemy.hpp"
 
-NormalEnemy::NormalEnemy(int x, int y) : Enemy("play/enemy-1.png", x, y, 10, 50, 5, 5, 1) {
+NormalEnemy::NormalEnemy(int x, int y) : Enemy("play/enemy-1.png", x, y, 10, 50, 5, 5, 2) {
     // TODO 2 (6/8): + You can imitate the 2 files: 'NormalEnemy.hpp', 'NormalEnemy.cpp' to create a new enemy.
 	// NOTED 1 (2/6): Imitate NomalEnemy.hpp to shoot bullets from this file 
+	// NOTED demo
+	Tag = "Normal";
 }
 
 void NormalEnemy::CreateEnemyBullet() {

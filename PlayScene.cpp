@@ -328,17 +328,17 @@ void PlayScene::OnKeyDown(int keyCode) {
 }
 void PlayScene::Hit() {
 	EarnLives(-1);
-	if (!lives) {
+	if (lives <= 0) {
 		// Free resources.
-				/*delete TileMapGroup;
-				delete GroundEffectGroup;
-				delete DebugIndicatorGroup;
-				delete TowerGroup;
-				delete EnemyGroup;
-				delete BulletGroup;
-				delete EffectGroup;
-				delete UIGroup;
-				delete imgTarget;*/
+				//delete TileMapGroup;
+				//delete GroundEffectGroup;
+				//delete DebugIndicatorGroup;
+				//delete TowerGroup;
+				//delete EnemyGroup;
+				//delete BulletGroup;
+				//delete EffectGroup;
+				//delete UIGroup;
+				//delete imgTarget;
 		//lose
 		Engine::GameEngine::GetInstance().ChangeScene("lose");
 	}

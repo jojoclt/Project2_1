@@ -19,6 +19,7 @@ protected:
 	float speed;
 	float hp;
 	int money;
+	std::string Tag = "";
 	PlayScene* getPlayScene();
 	virtual void OnExplode();
 	virtual void CreateEnemyBullet() = 0;
@@ -32,5 +33,6 @@ public:
  	void Hit(float damage);
 	void Update(float deltaTime) override;
 	void Draw() const override;
+	void increaseSpeed(float s);
 };
 #endif // ENEMY_HPP
