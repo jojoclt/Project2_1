@@ -10,6 +10,7 @@
 #include <memory>
 #include <numeric> 
 
+#include "BossEnemy.hpp"
 #include "AudioHelper.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
@@ -37,6 +38,7 @@
 #include "LOG.hpp"
 
 
+bool bossSpawn = false;
 bool PlayScene::DebugMode = false;
 const std::vector<Engine::Point> PlayScene::directions = { Engine::Point(-1, 0), Engine::Point(0, -1), Engine::Point(1, 0), Engine::Point(0, 1) };
 const int PlayScene::MapWidth = 12, PlayScene::MapHeight = 6;//50;//13;
@@ -55,7 +57,7 @@ void PlayScene::Initialize() {
 	ticks = 0;
 	deathCountDown = -1;
 	lives = 10;
-	money = 150;
+	money = 300;
 	SpeedMult = 1;
 	laneNum = std::vector<int>(MapHeight);
 	std::iota(laneNum.begin(), laneNum.end(), 0);
@@ -141,8 +143,10 @@ void PlayScene::Update(float deltaTime) {
 		if (enemyWaveData.empty()) {
 			if (EnemyGroup->GetObjects().empty()) {
 				// Win.
+				
 				Engine::GameEngine::GetInstance().ChangeScene("win");
 			}
+			
 			continue;
 		}
 		auto current = enemyWaveData.front();
@@ -175,12 +179,17 @@ void PlayScene::Update(float deltaTime) {
 				case 4:
 					EnemyGroup->AddNewObject(enemy = new HeadEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
 					break;
+				case 5:
+
+					EnemyGroup->AddNewObject(enemy = new BossEnemy(SpawnGridPointx * BlockSize + BlockSize / 2 + 2 * 15, 2 * BlockSize + BlockSize / 2));
+					break;
 				default:
 					continue;
 			}
 		    // Compensate the time lost.
 		    enemy->Update(ticks);
 		}
+		
 	}
 	if (preview) {
 		preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();
@@ -252,6 +261,13 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 			if (!preview)
 				return;
 
+			// Check if valid.
+			if (preview->GetPrice() != 0) {
+				Engine::Sprite* sprite;
+				GroundEffectGroup->AddNewObject(sprite = new DirtyEffect("play/target-invalid.png", 1, x * BlockSize + BlockSize / 2, y * BlockSize + BlockSize / 2));
+				sprite->Rotation = 0;
+				return;
+			}
 			// Remove Preview.
 			preview->GetObjectIterator()->first = false;
 			UIGroup->RemoveObject(preview->GetObjectIterator());

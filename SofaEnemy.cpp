@@ -19,7 +19,7 @@ SofaEnemy::SofaEnemy(int x, int y) : Enemy("play/enemy-2.png", x, y, 16, 100, 10
 void SofaEnemy::CreateEnemyBullet() {
 	Engine::Point diff = Engine::Point(-1, 0);
 	float rotation = ALLEGRO_PI / 2;
-	getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position.x + 30, Position.y));
+	getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position.x -10, Position.y));
 	getPlayScene()->EnemyBulletGroup->AddNewObject(new NormalEnemyBullet(Position, diff, rotation, this));
 	AudioHelper::PlayAudio("gun.wav");
 }

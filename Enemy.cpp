@@ -42,8 +42,9 @@ Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float
 }
 void Enemy::Hit(float damage) {
 	hp -= damage;
-	if (Tag == "Head") {
-		Velocity.x *= 1.1;
+	if (Tag == "Head" && Velocity.x <= 80) {
+		Velocity.x *= 1.02;
+		//Engine::LOG(Engine::DEBUGGING) << "HEAD VELO" << Velocity.x;
 	}
 	if (hp <= 0) {
 		OnExplode();
@@ -86,7 +87,7 @@ void Enemy::Update(float deltaTime) {
 			Target->lockedEnemy.erase(lockedEnemyIterator);
 			Target = nullptr;
 			lockedEnemyIterator = std::list<Enemy*>::iterator();
-			Engine::LOG(Engine::DEBUGGING) << "LockTarget";
+			//Engine::LOG(Engine::DEBUGGING) << "LockTarget";
 		}
 		// Shoot reload.
 		reload -= deltaTime;
@@ -117,4 +118,9 @@ void Enemy::Draw() const {
 		// Draw collision radius.
 		al_draw_circle(Position.x, Position.y, CollisionRadius, al_map_rgb(255, 0, 0), 2);
 	}
+}
+
+void Enemy::increaseSpeed(float s) {
+	if (Tag == "Boss") return;
+	Velocity.x *= s;
 }

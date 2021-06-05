@@ -16,6 +16,7 @@ protected:
 	float speed;
 	float damage;
 	Turret* parent;
+	std::string Tag;
 	PlayScene* getPlayScene();
 	virtual void OnExplode(Enemy* enemy);
 public:

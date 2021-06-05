@@ -12,7 +12,7 @@
 class Turret;
 
 NormalEnemyBullet::NormalEnemyBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Enemy* parent) :
-	EnemyBullet("play/bullet-11.png", 500, 1, position, forwardDirection, rotation - ALLEGRO_PI / 2, parent) {
+	EnemyBullet("play/bullet-11.png", 500, 0.4, position, forwardDirection, rotation - ALLEGRO_PI / 2, parent) {
 	// NOTED 1 (1/6): Imitate EnemyBullet.hpp and EnemyBullet.cpp from here to create EnemyBullet
 }
 void NormalEnemyBullet::OnExplode(Turret* turret) {

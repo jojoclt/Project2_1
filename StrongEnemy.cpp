@@ -19,7 +19,7 @@ StrongEnemy::StrongEnemy(int x, int y) : Enemy("play/enemy-3.png", x, y, 20, 20,
 void StrongEnemy::CreateEnemyBullet() {
 	Engine::Point diff = Engine::Point(-1, 0);
 	float rotation = ALLEGRO_PI / 2;
-	getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position.x + 30, Position.y));
+	getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position.x -10, Position.y));
 	getPlayScene()->EnemyBulletGroup->AddNewObject(new NormalEnemyBullet(Position, diff, rotation, this));
 	AudioHelper::PlayAudio("gun.wav");
 }

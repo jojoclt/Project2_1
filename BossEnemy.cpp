@@ -11,7 +11,8 @@
 #include "ShootEffect.hpp"
 #include "Enemy.hpp"
 
-BossEnemy::BossEnemy(int x, int y) : Enemy("play/boss.png", x, y, 50, 50, 5, 5, 2) {
+BossEnemy::BossEnemy(int x, int y) : Enemy("play/boss.png", x, y, 250, 50, 200, 5, 2) {
+	Tag = "Boss";
 }
 
 void BossEnemy::CreateEnemyBullet() {
