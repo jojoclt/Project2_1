@@ -20,6 +20,7 @@ namespace Engine {
 
 class PlayScene final : public Engine::IScene {
 private:
+	// NOTED A1/1-2 Encapsulated Protect sensitive data private public
 	enum TileType {
 		TILE_DIRT,
 		TILE_FLOOR,

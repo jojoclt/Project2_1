@@ -150,12 +150,14 @@ void PlayScene::Update(float deltaTime) {
 			continue;
 		ticks -= std::get<1>(current);
 		enemyWaveData.pop_front();
+		// FIND SEED
         std::random_device dev;
 	    std::mt19937 rng(dev());
 		std::shuffle(laneNum.begin(), laneNum.end(), rng);
         std::uniform_int_distribution<std::mt19937::result_type> dist(1, 3);
         Enemy* enemy;
         for(int j = 0 ; j < std::get<2>(current) ; j++){
+			// NOTED B1/3-3 Auto random spawn
             const Engine::Point SpawnCoordinate = Engine::Point(SpawnGridPointx * BlockSize + BlockSize / 2 + dist(rng) * 15, laneNum[j] * BlockSize + BlockSize / 2);
             switch (std::get<0>(current)) {
 				case 1:
@@ -343,6 +345,7 @@ void PlayScene::Hit() {
 		Engine::GameEngine::GetInstance().ChangeScene("lose");
 	}
 }
+// NOTED A1/2-2 Getter and Setters
 int PlayScene::GetMoney() const {
 	return money;
 }
@@ -355,6 +358,7 @@ void PlayScene::EarnLives(int lives) {
 	UILives->Text = std::string("Life ") + std::to_string(this->lives);
 }
 void PlayScene::ReadMap() {
+	// NOTED B1/1-3 Readmap
 	std::string filename = std::string("resources/map") + std::to_string(MapId) + ".txt";
 	// Read map file.
 	char c;
@@ -396,6 +400,7 @@ void PlayScene::ReadEnemyWave() {
 	enemyWaveData.clear();
 	std::ifstream fin(filename);
 	while (fin >> type && fin >> wait && fin >> totallane && fin >> repeat) {
+	// NOTED B1/2-3 Read Wave
 		for (int i = 0; i < repeat; i++)
 			enemyWaveData.emplace_back(type, wait, totallane);
 	}

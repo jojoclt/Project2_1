@@ -86,7 +86,7 @@ void Enemy::Update(float deltaTime) {
 			Target->lockedEnemy.erase(lockedEnemyIterator);
 			Target = nullptr;
 			lockedEnemyIterator = std::list<Enemy*>::iterator();
-
+			Engine::LOG(Engine::DEBUGGING) << "LockTarget";
 		}
 		// Shoot reload.
 		reload -= deltaTime;

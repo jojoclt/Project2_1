@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="Allegro5Exception.hpp" />
     <ClInclude Include="AudioHelper.hpp" />
+    <ClInclude Include="BossEnemy.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="Collider.hpp" />
     <ClInclude Include="DefenseTurret.hpp" />
@@ -232,6 +233,7 @@
   <ItemGroup>
     <ClCompile Include="Allegro5Exception.cpp" />
     <ClCompile Include="AudioHelper.cpp" />
+    <ClCompile Include="BossEnemy.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DefenseTurret.cpp" />

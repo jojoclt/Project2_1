@@ -4,6 +4,7 @@
 #include <utility>
 #include <random>
 
+#include "LOG.hpp"
 #include "AudioHelper.hpp"
 #include "Collider.hpp"
 #include "DirtyEffect.hpp"
@@ -60,6 +61,7 @@ void Turret::Update(float deltaTime) {
 		// Lock first seen target.
 		// Can be improved by Spatial Hash, Quad Tree, ...
 		// However simply loop through all enemies is enough for this program.
+			
 		for (auto& it : scene->EnemyGroup->GetObjects()) {
             if (it->Position.x > Position.x && it->Position.y >= Position.y  && it->Position.y < Position.y+scene->BlockSize) {
 				Target = dynamic_cast<Enemy*>(it);
@@ -83,7 +85,7 @@ void Turret::Hit(float damage) {
 		if (explodable) {
 			for (auto& it : getPlayScene()->EnemyGroup->GetObjects()) {
 				Enemy* enemy = dynamic_cast<Enemy*>(it);
-				if (Engine::Collider::IsCircleOverlap(Position, 250, enemy->Position, enemy->CollisionRadius))
+				if (Engine::Collider::IsCircleOverlap(Position, ExplodeRadius, enemy->Position, enemy->CollisionRadius))
 					enemy->Hit(INFINITY);
 			}
 		}
@@ -94,7 +96,7 @@ void Turret::Hit(float damage) {
 	}
 }
 void Turret::Draw() const {
-	if (explodable) al_draw_circle(Position.x, Position.y, 250, al_map_rgb(0, 255, 0), 2);
+	if (explodable) al_draw_circle(Position.x, Position.y, ExplodeRadius, al_map_rgb(0, 255, 0), 2);
 	else if (Preview) {
 		al_draw_filled_circle(Position.x, Position.y, CollisionRadius, al_map_rgba(0, 255, 0, 50));
 	}

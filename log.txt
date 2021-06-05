@@ -51,30 +51,12 @@
 [INFO] Loaded Resource<image>: resources/images/play/explosion-3.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-4.png
 [INFO] Loaded Resource<image>: resources/images/play/explosion-5.png
-[INFO] Loaded Resource<image>: resources/images/play/dirty-3.png
 [INFO] Loaded Resource<image>: resources/images/play/dirty-2.png
+[INFO] Loaded Resource<image>: resources/images/play/dirty-3.png
 [INFO] Loaded Resource<audio>: resources/audios/explosion.wav
 [INFO] Loaded Resource<image>: resources/images/play/enemy-4.png
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
-[INFO] stopped audio (sample)
-[INFO] Created<sample_instance>: resources/audios/astronomia.ogg
 [INFO] Game Terminating...
 [INFO] stopped audio (bgm)
-[INFO] stopped audio (sample)
 [INFO] Game terminated
 [INFO] Game end
 [INFO] Destroyed Resource<image>: play/dirty-3.png
